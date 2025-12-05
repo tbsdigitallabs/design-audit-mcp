@@ -1,0 +1,40 @@
+{
+  "name": "design-audit-mcp",
+  "version": "1.0.0",
+  "description": "Stack-agnostic MCP server for design auditing, refactoring, and UI/UX code generation",
+  "type": "module",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "tsx src/server.ts",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "mcp",
+    "design",
+    "audit",
+    "ui",
+    "ux",
+    "refactor"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "@babel/parser": "^7.24.0",
+    "@babel/traverse": "^7.24.0",
+    "@babel/types": "^7.24.0",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.1",
+    "cheerio": "^1.0.0",
+    "diff": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/diff": "^5.0.9",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}
+
