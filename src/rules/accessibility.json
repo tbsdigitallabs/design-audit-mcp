@@ -1,0 +1,34 @@
+{
+  "wcag": {
+    "version": "2.1",
+    "level": "AA",
+    "requirements": {
+      "contrast": {
+        "normalText": 4.5,
+        "largeText": 3.0,
+        "uiComponents": 3.0
+      },
+      "keyboardNavigation": {
+        "required": true,
+        "focusIndicators": true,
+        "skipLinks": true
+      },
+      "ariaLabels": {
+        "requiredForInteractive": true,
+        "requiredForImages": true,
+        "requiredForIcons": true
+      },
+      "touchTargets": {
+        "minimumSize": "44x44px"
+      }
+    }
+  },
+  "bestPractices": [
+    "All interactive elements must be keyboard accessible",
+    "Images must have alt text or be marked as decorative",
+    "Form inputs must have associated labels",
+    "Error messages must be announced to screen readers",
+    "Focus order must be logical and predictable"
+  ]
+}
+

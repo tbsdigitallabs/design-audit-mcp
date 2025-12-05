@@ -1,0 +1,32 @@
+{
+  "componentLibrary": "shadcn",
+  "preferredComponents": {
+    "Button": {
+      "variants": ["default", "destructive", "outline", "secondary", "ghost", "link"],
+      "sizes": ["default", "sm", "lg", "icon"],
+      "preferredVariant": "default"
+    },
+    "Card": {
+      "preferredStructure": "CardHeader, CardTitle, CardDescription, CardContent, CardFooter"
+    },
+    "Dialog": {
+      "requiredProps": ["open", "onOpenChange"]
+    },
+    "Form": {
+      "preferredStructure": "FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage"
+    }
+  },
+  "spacingConventions": {
+    "componentGap": "gap-4",
+    "sectionGap": "gap-6",
+    "pageGap": "gap-8"
+  },
+  "typographyConventions": {
+    "heading1": "text-4xl font-bold",
+    "heading2": "text-3xl font-semibold",
+    "heading3": "text-2xl font-semibold",
+    "body": "text-base",
+    "caption": "text-sm text-muted-foreground"
+  }
+}
+

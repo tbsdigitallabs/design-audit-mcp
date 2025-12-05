@@ -1,0 +1,8 @@
+{
+  "tool": "design_extract",
+  "input": {
+    "code": "export function Button() { return <button className=\"px-4 py-2 bg-blue-500\">Click me</button> }",
+    "filePath": "src/components/Button.tsx"
+  }
+}
+
