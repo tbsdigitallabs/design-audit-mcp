@@ -104,6 +104,10 @@ export function extractLayoutTree(parseResult: ParseResult, components: Array<{ 
     return null;
   };
 
+  const isLayoutNode = (node: LayoutNode | { ref: string } | null): node is LayoutNode => {
+    return node !== null && 'type' in node;
+  };
+
   traverse(parseResult.ast, {
     Program(path) {
       // Find the root JSX element
@@ -114,7 +118,13 @@ export function extractLayoutTree(parseResult: ParseResult, components: Array<{ 
           if (body && t.isBlockStatement(body)) {
             for (const stmt of body.body) {
               if (t.isReturnStatement(stmt) && stmt.argument && t.isJSXElement(stmt.argument)) {
-                rootLayout = buildLayoutNode(stmt.argument) as LayoutNode;
+                const result = buildLayoutNode(stmt.argument);
+                if (isLayoutNode(result)) {
+                  rootLayout = result;
+                } else if (result && 'ref' in result) {
+                  // Wrap component reference in a container
+                  rootLayout = { type: 'container', children: [result] };
+                }
                 break;
               }
             }
@@ -122,7 +132,13 @@ export function extractLayoutTree(parseResult: ParseResult, components: Array<{ 
         } else if (t.isExportDefaultDeclaration(statement) && t.isArrowFunctionExpression(statement.declaration)) {
           const arrow = statement.declaration;
           if (t.isJSXElement(arrow.body)) {
-            rootLayout = buildLayoutNode(arrow.body) as LayoutNode;
+            const result = buildLayoutNode(arrow.body);
+            if (isLayoutNode(result)) {
+              rootLayout = result;
+            } else if (result && 'ref' in result) {
+              // Wrap component reference in a container
+              rootLayout = { type: 'container', children: [result] };
+            }
             break;
           }
         }
