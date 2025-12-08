@@ -58,8 +58,7 @@ function fixSpacingTokens(extraction: DesignExtraction): PatchOperation[] {
                 type: 'replace',
                 startLine: line,
                 endLine: line,
-                content: `className="${newClass}"`, // Standardized spacing
-`,
+                content: `className="${newClass}"`,
             });
         }
     }
@@ -90,4 +89,3 @@ function generateShadcnButton(component: { name: string; props: Record<string, u
   const size = component.props.size || 'default';
   return `<Button variant="${variant}" size="${size}">${component.props.children || 'Button'}</Button>`;
 }
-
