@@ -4,34 +4,34 @@ import { Ruleset } from '../types/index.js';
 import { logger } from '../utils/logger.js';
 
 export interface LayoutIntent {
-  type: 'page' | 'section' | 'grid' | 'flex';
-  columns?: number;
-  responsive?: boolean;
-  framework: string;
+    type: 'page' | 'section' | 'grid' | 'flex';
+    columns?: number;
+    responsive?: boolean;
+    framework: string;
 }
 
 export function generateLayout(intent: LayoutIntent, ruleset: Ruleset): string {
-  logger.debug('Generating layout', { type: intent.type, framework: intent.framework });
+    logger.debug('Generating layout', { type: intent.type, framework: intent.framework });
 
-  switch (intent.type) {
-    case 'page':
-      return generatePageLayout(intent, ruleset);
-    case 'section':
-      return generateSectionLayout(intent, ruleset);
-    case 'grid':
-      return generateGridLayout(intent, ruleset);
-    case 'flex':
-      return generateFlexLayout(intent, ruleset);
-    default:
-      return generateDefaultLayout(intent, ruleset);
-  }
+    switch (intent.type) {
+        case 'page':
+            return generatePageLayout(intent, ruleset);
+        case 'section':
+            return generateSectionLayout(intent, ruleset);
+        case 'grid':
+            return generateGridLayout(intent, ruleset);
+        case 'flex':
+            return generateFlexLayout(intent, ruleset);
+        default:
+            return generateDefaultLayout(intent, ruleset);
+    }
 }
 
 function generatePageLayout(intent: LayoutIntent, ruleset: Ruleset): string {
-  const spacing = (ruleset.libraryRules as { spacingConventions?: { pageGap?: string } } | undefined)?.spacingConventions?.pageGap || 'gap-8';
+    const spacing = (ruleset.libraryRules as { spacingConventions?: { pageGap?: string } } | undefined)?.spacingConventions?.pageGap || 'gap-8';
 
-  if (intent.framework === 'React') {
-    return `export function PageLayout() {
+    if (intent.framework === 'React') {
+        return `export function PageLayout() {
   return (
     <div className="min-h-screen">
       <header className="border-b">
@@ -48,16 +48,16 @@ function generatePageLayout(intent: LayoutIntent, ruleset: Ruleset): string {
     </div>
   )
 }`;
-  }
+    }
 
-  return `<!-- Page layout for ${intent.framework} -->`;
+    return `<!-- Page layout for ${intent.framework} -->`;
 }
 
 function generateSectionLayout(intent: LayoutIntent, ruleset: Ruleset): string {
-  const spacing = (ruleset.libraryRules as { spacingConventions?: { sectionGap?: string } } | undefined)?.spacingConventions?.sectionGap || 'gap-6';
+    const spacing = (ruleset.libraryRules as { spacingConventions?: { sectionGap?: string } } | undefined)?.spacingConventions?.sectionGap || 'gap-6';
 
-  if (intent.framework === 'React') {
-    return `export function SectionLayout() {
+    if (intent.framework === 'React') {
+        return `export function SectionLayout() {
   return (
     <section className="py-8">
       <div className="flex flex-col ${spacing}">
@@ -66,50 +66,60 @@ function generateSectionLayout(intent: LayoutIntent, ruleset: Ruleset): string {
     </section>
   )
 }`;
-  }
+    }
 
-  return `<!-- Section layout for ${intent.framework} -->`;
+    return `<!-- Section layout for ${intent.framework} -->`;
 }
 
 function generateGridLayout(intent: LayoutIntent, ruleset: Ruleset): string {
-  const columns = intent.columns || 3;
-  const responsive = intent.responsive !== false;
+    const columns = intent.columns || 3;
+    const responsive = intent.responsive !== false;
 
-  if (intent.framework === 'React') {
-    const gridClass = responsive
-      ? `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${columns} gap-4`
-      : `grid grid-cols-${columns} gap-4`;
+    if (intent.framework === 'React') {
+        // Use static Tailwind classes - dynamic class names won't work with Tailwind JIT
+        const gridClassMap: Record<number, string> = {
+            1: 'grid-cols-1',
+            2: 'grid-cols-2',
+            3: 'grid-cols-3',
+            4: 'grid-cols-4',
+            5: 'grid-cols-5',
+            6: 'grid-cols-6',
+        };
+        const baseGridClass = gridClassMap[columns] || 'grid-cols-3';
+        const gridClass = responsive
+            ? `grid grid-cols-1 md:grid-cols-2 lg:${baseGridClass} gap-4`
+            : `grid ${baseGridClass} gap-4`;
 
-    return `export function GridLayout() {
+        return `export function GridLayout() {
   return (
     <div className="${gridClass}">
       {/* Grid items */}
     </div>
   )
 }`;
-  }
+    }
 
-  return `<!-- Grid layout for ${intent.framework} -->`;
+    return `<!-- Grid layout for ${intent.framework} -->`;
 }
 
 function generateFlexLayout(intent: LayoutIntent, ruleset: Ruleset): string {
-  const spacing = (ruleset.libraryRules as { spacingConventions?: { componentGap?: string } } | undefined)?.spacingConventions?.componentGap || 'gap-4';
+    const spacing = (ruleset.libraryRules as { spacingConventions?: { componentGap?: string } } | undefined)?.spacingConventions?.componentGap || 'gap-4';
 
-  if (intent.framework === 'React') {
-    return `export function FlexLayout() {
+    if (intent.framework === 'React') {
+        return `export function FlexLayout() {
   return (
     <div className="flex flex-row ${spacing}">
       {/* Flex items */}
     </div>
   )
 }`;
-  }
+    }
 
-  return `<!-- Flex layout for ${intent.framework} -->`;
+    return `<!-- Flex layout for ${intent.framework} -->`;
 }
 
 function generateDefaultLayout(intent: LayoutIntent, ruleset: Ruleset): string {
-  return `// Generated layout: ${intent.type}
+    return `// Generated layout: ${intent.type}
 // Framework: ${intent.framework}
 // TODO: Implement layout structure`;
 }

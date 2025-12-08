@@ -1,6 +1,6 @@
 // Spacing map extraction
 
-import { traverse } from '@babel/traverse';
+import traverse from '@babel/traverse';
 import * as t from '@babel/types';
 import { ParseResult } from './ast-parser.js';
 import { extractTailwindClasses } from './class-extractor.js';

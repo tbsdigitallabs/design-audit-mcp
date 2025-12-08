@@ -1,6 +1,6 @@
 // Image reference extraction
 
-import { traverse } from '@babel/traverse';
+import traverse from '@babel/traverse';
 import * as t from '@babel/types';
 import { ImageReference } from '../types/index.js';
 import { getNodeLocation, ParseResult } from './ast-parser.js';
@@ -36,17 +36,17 @@ export function extractImagery(parseResult: ParseResult): ImageReference[] {
     if (!alt || alt.trim() === '') {
       return 'decorative';
     }
-    
+
     // If alt describes content, it's informative
     if (alt.length > 10) {
       return 'informative';
     }
-    
+
     // Check if it's an icon or button (functional)
     if (src?.includes('icon') || src?.includes('button') || src?.includes('arrow')) {
       return 'functional';
     }
-    
+
     return 'informative';
   };
 
@@ -74,8 +74,8 @@ export function extractImagery(parseResult: ParseResult): ImageReference[] {
         return;
       }
 
-      // Check for Image components (React, Next.js, etc.)
-      if (t.isJSXIdentifier(name) && (name.name === 'Image' || name.name === 'img')) {
+      // Check for Image components (React, Next.js, etc.) - img tags already handled above
+      if (t.isJSXIdentifier(name) && name.name === 'Image') {
         const location = getNodeLocation(node);
         if (!location) return;
 

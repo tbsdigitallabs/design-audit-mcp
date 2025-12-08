@@ -21,7 +21,12 @@ export function applyPatches(filePath: string, patches: PatchOperation[]): strin
 
       switch (patch.type) {
         case 'insert':
-          newLines.splice(startIdx, 0, patch.content);
+          // Split multi-line content and insert each line
+          const contentLines = patch.content.split('\n');
+          contentLines.reverse(); // Insert in reverse order to maintain line numbers
+          for (const line of contentLines) {
+            newLines.splice(startIdx, 0, line);
+          }
           break;
 
         case 'delete':

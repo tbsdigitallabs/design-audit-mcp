@@ -1,21 +1,20 @@
 {
-  "tool": "design_audit",
-  "input": {
-    "code": "export function Form() { return <form><input /><button>Submit</button></form> }",
-    "filePath": "src/components/Form.tsx"
-  },
-  "expected_output": {
-    "critique": {
-      "overall": 3.0,
-      "severity": "Moderate",
-      "violations": [
-        {
-          "category": "accessibility",
-          "severity": "high",
-          "message": "Missing aria-label for interactive element"
+    "tool": "design_audit",
+    "input": {
+        "code": "export function Form() { return <form><input /><button>Submit</button></form> }",
+        "filePath": "src/components/Form.tsx"
+    },
+    "expected_output": {
+        "critique": {
+            "overall": 3.0,
+            "severity": "Moderate",
+            "violations": [
+                {
+                    "category": "accessibility",
+                    "severity": "high",
+                    "message": "Missing aria-label for interactive element"
+                }
+            ]
         }
-      ]
     }
-  }
 }
-

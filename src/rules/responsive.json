@@ -1,35 +1,44 @@
 {
-  "breakpoints": {
-    "sm": { "minWidth": "640px" },
-    "md": { "minWidth": "768px" },
-    "lg": { "minWidth": "1024px" },
-    "xl": { "minWidth": "1280px" },
-    "2xl": { "minWidth": "1536px" }
-  },
-  "mobileFirst": true,
-  "conventions": {
-    "mobile": {
-      "maxWidth": "639px",
-      "spacing": "p-4",
-      "typography": "text-base"
+    "breakpoints": {
+        "sm": {
+            "minWidth": "640px"
+        },
+        "md": {
+            "minWidth": "768px"
+        },
+        "lg": {
+            "minWidth": "1024px"
+        },
+        "xl": {
+            "minWidth": "1280px"
+        },
+        "2xl": {
+            "minWidth": "1536px"
+        }
     },
-    "tablet": {
-      "minWidth": "640px",
-      "maxWidth": "1023px",
-      "spacing": "p-6",
-      "typography": "text-lg"
+    "mobileFirst": true,
+    "conventions": {
+        "mobile": {
+            "maxWidth": "639px",
+            "spacing": "p-4",
+            "typography": "text-base"
+        },
+        "tablet": {
+            "minWidth": "640px",
+            "maxWidth": "1023px",
+            "spacing": "p-6",
+            "typography": "text-lg"
+        },
+        "desktop": {
+            "minWidth": "1024px",
+            "spacing": "p-8",
+            "typography": "text-xl"
+        }
     },
-    "desktop": {
-      "minWidth": "1024px",
-      "spacing": "p-8",
-      "typography": "text-xl"
+    "patterns": {
+        "stackOnMobile": true,
+        "gridOnDesktop": true,
+        "hideOnMobile": "hidden md:block",
+        "showOnMobile": "block md:hidden"
     }
-  },
-  "patterns": {
-    "stackOnMobile": true,
-    "gridOnDesktop": true,
-    "hideOnMobile": "hidden md:block",
-    "showOnMobile": "block md:hidden"
-  }
 }
-

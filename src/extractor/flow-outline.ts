@@ -1,6 +1,6 @@
 // Flow outline generation
 
-import { traverse } from '@babel/traverse';
+import traverse from '@babel/traverse';
 import * as t from '@babel/types';
 import { FlowNode } from '../types/index.js';
 import { getNodeLocation, ParseResult } from './ast-parser.js';

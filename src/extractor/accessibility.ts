@@ -1,6 +1,6 @@
 // Accessibility indicator extraction
 
-import { traverse } from '@babel/traverse';
+import traverse from '@babel/traverse';
 import * as t from '@babel/types';
 import { AccessibilityIndicator } from '../types/index.js';
 import { getNodeLocation, ParseResult } from './ast-parser.js';
@@ -70,7 +70,7 @@ export function extractAccessibility(parseResult: ParseResult, components: Array
     JSXElement(path) {
       const node = path.node;
       const location = getNodeLocation(node);
-      
+
       if (!location) return;
 
       // Check for missing aria labels on interactive elements
@@ -88,15 +88,9 @@ export function extractAccessibility(parseResult: ParseResult, components: Array
       }
 
       // Check for keyboard navigation (simplified - would need more analysis)
-      const name = node.openingElement.name;
-      if (t.isJSXIdentifier(name) && name.name === 'button') {
-        const disabled = node.openingElement.attributes.some(
-          (attr) => t.isJSXAttribute(attr) && t.isJSXIdentifier(attr.name) && attr.name.name === 'disabled'
-        );
-        if (disabled) {
-          keyboardNavigable = false;
-        }
-      }
+      // Note: Disabled buttons are still keyboard navigable, just not interactive
+      // This flag should track if interactive elements are keyboard accessible
+      // For now, we assume keyboard navigability unless we find evidence otherwise
 
       // Check contrast
       checkContrast(node);

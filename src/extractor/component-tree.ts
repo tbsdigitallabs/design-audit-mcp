@@ -1,6 +1,6 @@
 // Component tree extraction
 
-import { traverse } from '@babel/traverse';
+import traverse from '@babel/traverse';
 import * as t from '@babel/types';
 import { ComponentNode, Location } from '../types/index.js';
 import { getNodeLocation, isJSXElement, isJSXOpeningElement, ParseResult } from './ast-parser.js';
@@ -16,7 +16,7 @@ export function extractComponentTree(parseResult: ParseResult, framework: string
 
   const extractProps = (attributes: (t.JSXAttribute | t.JSXSpreadAttribute)[]): Record<string, unknown> => {
     const props: Record<string, unknown> = {};
-    
+
     for (const attr of attributes) {
       if (t.isJSXAttribute(attr)) {
         const name = attr.name.name;
@@ -41,7 +41,7 @@ export function extractComponentTree(parseResult: ParseResult, framework: string
         }
       }
     }
-    
+
     return props;
   };
 
@@ -52,12 +52,12 @@ export function extractComponentTree(parseResult: ParseResult, framework: string
         return 'shadcn';
       }
     }
-    
+
     // Framework detection
     if (framework === 'React') {
       return 'react';
     }
-    
+
     return undefined;
   };
 
@@ -78,8 +78,8 @@ export function extractComponentTree(parseResult: ParseResult, framework: string
         return;
       }
 
-      // Skip HTML elements (lowercase)
-      if (componentName[0] === componentName[0].toLowerCase() && componentName[0] !== componentName[0].toUpperCase()) {
+      // Skip HTML elements (lowercase) - only process PascalCase components
+      if (componentName[0] === componentName[0].toLowerCase()) {
         return;
       }
 
